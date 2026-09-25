@@ -1,4 +1,4 @@
-# Ai-study-planner
+
 # 🤖 AI Study Planner
 
 ## 📌 Project Overview
