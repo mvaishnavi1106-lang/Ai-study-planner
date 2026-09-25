@@ -1,0 +1,163 @@
+/* 🌐 Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* 🌈 Body */
+body{
+    font-family: 'Inter', sans-serif;
+    background: #0f172a; /* dark blue */
+    margin:0;
+    padding:0;
+    color:#e2e8f0;
+}
+
+/* 📦 Container */
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+/* 🧠 Title */
+h2{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+/* 🔷 Section Titles */
+h3{
+    margin:20px 0 10px 0;
+    font-size:18px;
+    color:#38bdf8;
+}
+
+/* 🧩 GRID FIX (perfect alignment) */
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap:15px;
+}
+
+/* 📦 Card FIX */
+.card{
+    background:#1e293b;
+    padding:12px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    gap:5px; /* 🔥 removes extra space */
+}
+
+/* 🏷️ Subject name */
+.card h4{
+    margin:0;
+    font-size:15px;
+    color:#f1f5f9;
+}
+
+/* ✏️ Input FIX (no right shift) */
+input{
+    width:100%;
+    padding:8px;
+    border-radius:6px;
+    border:none;
+    outline:none;
+    margin:0; /* 🔥 removes unwanted gap */
+    box-sizing:border-box;
+}
+
+/* 📂 File input */
+input[type="file"]{
+    background:#334155;
+    color:white;
+}
+
+/* 🚀 Button */
+button{
+    width:100%;
+    margin-top:20px;
+    padding:10px;
+    background:#38bdf8;
+    border:none;
+    border-radius:8px;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0ea5e9;
+}
+
+/* 📊 Result */
+.result{
+    margin-top:20px;
+}
+
+/* 📅 Day Card */
+.day-card{
+    background:#1e293b;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:10px;
+}
+
+/* 📘 Text spacing fix */
+.day-card p{
+    margin:5px 0 0 0;
+}
+
+/* 📊 Graph */
+img{
+    margin-top:10px;
+    border-radius:8px;
+}
+
+/* 📱 Mobile */
+@media(max-width:600px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+/* 📝 TODO BOX */
+.todo-box{
+    background:#1e293b;
+    padding:15px;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+.todo-box input{
+    width:70%;
+    padding:8px;
+    margin-right:5px;
+}
+
+.todo-box button{
+    width:25%;
+    padding:8px;
+    background:#22c55e;
+    color:white;
+    border:none;
+    border-radius:6px;
+}
+
+/* 📋 Task List */
+#taskList{
+    margin-top:10px;
+    padding:0;
+    list-style:none;
+}
+
+#taskList li{
+    background:#334155;
+    margin-bottom:5px;
+    padding:8px;
+    border-radius:6px;
+    display:flex;
+    justify-content:space-between;
+}
+
+#taskList span{
+    cursor:pointer;
+}

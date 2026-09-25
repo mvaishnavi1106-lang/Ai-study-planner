@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+li { cursor: pointer; padding: 5px; }
+.completed { text-decoration: line-through; color: gray; }
+</style> 
+    <title>AI Study Planner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="container">
+
+
+</div>
+    <h2>🧠 SmartPrep AI</h2>
+
+    <form action="/plan" method="post" enctype="multipart/form-data">
+
+        <!-- 📊 DIFFICULTY SECTION -->
+        <h3>📘 Subject Difficulty</h3>
+
+        <div class="grid">
+
+            <div class="card">
+                <h4>AI</h4>
+                <input type="number" name="ai" placeholder="Difficulty (1-5)" required>
+            </div>
+
+            <div class="card">
+                <h4>DBMS</h4>
+                <input type="number" name="dbms" placeholder="Difficulty (1-5)" required>
+            </div>
+
+            <div class="card">
+                <h4>Maths</h4>
+                <input type="number" name="maths" placeholder="Difficulty (1-5)" required>
+            </div>
+
+            <div class="card">
+                <h4>SML</h4>
+                <input type="number" name="sml" placeholder="Difficulty (1-5)" required>
+            </div>
+
+            <div class="card">
+                <h4>DAA</h4>
+                <input type="number" name="daa" placeholder="Difficulty (1-5)" required>
+            </div>
+
+        </div>
+
+        <!-- 📂 UPLOAD SECTION -->
+        <h3>📂 Upload Syllabus</h3>
+
+        <div class="grid">
+
+            <div class="card">
+                <h4>Upload AI Syllabus</h4>
+                <input type="file" name="ai_file">
+            </div>
+
+            <div class="card">
+                <h4>Upload DAA Syllabus</h4>
+                <input type="file" name="daa_file">
+            </div>
+
+            <div class="card">
+                <h4>Upload Maths / SML / DBMS Syllabus</h4>
+                <input type="file" name="common_file">
+            </div>
+
+        </div>
+
+        <!-- ⚙️ SETTINGS -->
+        <h3>⚙️ Study Settings</h3>
+
+        <div class="grid">
+
+            <div class="card">
+                <label>Study Hours / Day</label>
+                <input type="number" name="hours" required>
+            </div>
+
+            <div class="card">
+                <label>Stress Level (1-5)</label>
+                <input type="number" name="stress" required>
+            </div>
+
+            <div class="card">
+                <label>Exam Days Left</label>
+                <input type="number" name="days" required>
+            </div>
+
+        </div>
+<!-- your form here -->
+
+    <!-- ✅ ADD HERE -->
+    <h3>📝 My Tasks</h3>
+
+    <div class="todo-box">
+        <div class="todo-input-row">
+            <input type="text" id="taskInput" placeholder="Write your task...">
+            <ul id="taskList"></ul>
+            <button onclick="addTask()">Add</button>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+
+</div>
+        <button type="submit">Generate Plan 🚀</button>
+
+    </form>
+
+    <!-- 📊 OUTPUT -->
+    {% if plan %}
+    <div class="result">
+
+        <h3>📅 Study Plan</h3>
+
+        {% for day, details in plan.items() %}
+            <div class="day-card">
+                <h4>{{ day }}</h4>
+                <p>{{ details }}</p>
+            </div>
+        {% endfor %}
+
+        <h3>🎯 Predicted Score</h3>
+        <p>{{ predicted_score }}%</p>
+
+        <h3>🔥 Motivation</h3>
+        <p>{{ motivation }}</p>
+
+        <h3>📊 Difficulty Graph</h3>
+        <img src="{{ url_for('static', filename='graph.png') }}" width="100%">
+
+    </div>
+
+    {% endif %}
+
+</div>
+<script>
+// Load tasks when page opens
+window.onload = function() {
+  loadTasks();
+};
+
+function addTask() {
+  const taskInput = document.getElementById('taskInput');
+  const taskText = taskInput.value.trim();
+
+  if (!taskText) return;
+
+  const tasks = getTasks();
+  tasks.push({ text: taskText, completed: false });
+
+  saveTasks(tasks);
+  renderTasks();
+
+  taskInput.value = "";
+}
+
+function getTasks() {
+  return JSON.parse(localStorage.getItem('tasks')) || [];
+}
+
+function saveTasks(tasks) {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasks() {
+  renderTasks();
+}
+
+function renderTasks() {
+  const taskList = document.getElementById('taskList');
+  taskList.innerHTML = "";
+
+  const tasks = getTasks();
+
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.textContent = task.text;
+
+    if (task.completed) {
+      li.classList.add('completed');
+    }
+
+    // Toggle complete
+    li.onclick = () => {
+      tasks[index].completed = !tasks[index].completed;
+      saveTasks(tasks);
+      renderTasks();
+    };
+
+    taskList.appendChild(li);
+  });
+}
+</script>
+</body>
+</html>
